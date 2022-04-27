@@ -4,8 +4,8 @@ import sbtcrossproject.{crossProject, CrossType}
 enablePlugins(ScalaJSPlugin)
 
 val defaultSettings = Seq(
-  scalaVersion := "2.11.12",
-  crossScalaVersions := List("2.11.12", "2.12.8", "2.13.0-M5"),
+  scalaVersion := "2.12.15",
+  crossScalaVersions := List("2.11.12", "2.12.15", "2.13.0-M5"),
   resolvers += Resolver.sonatypeRepo("releases"),
   homepage := Some(url("http://monovore.com/decline")),
   organization := "com.monovore",
@@ -67,13 +67,7 @@ lazy val decline =
   crossProject(JSPlatform, JVMPlatform).in(file("core"))
     .settings(defaultSettings)
     .settings(
-      libraryDependencies += {
-        if (scalaVersion.value == "2.13.0-M5") {
-          compilerPlugin("org.spire-math" %% "kind-projector" % "0.9.8" cross CrossVersion.binary)
-        } else {
-          compilerPlugin("org.typelevel" %% "kind-projector" % "0.10.0" cross CrossVersion.binary)
-        }
-      }
+      libraryDependencies += compilerPlugin("org.typelevel" %% "kind-projector" % "0.13.2" cross CrossVersion.full)
     )
     .settings(
       name := "decline",

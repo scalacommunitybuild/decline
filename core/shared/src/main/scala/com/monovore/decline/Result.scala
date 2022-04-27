@@ -84,7 +84,7 @@ private[decline] object Result {
   implicit val alternative: Alternative[Result] =
     new Alternative[Result] {
 
-      private[this] val applicative = Applicative[Validated[Failure, ?]].compose[Function0].compose[Validated[List[String], ?]]
+      private[this] val applicative = Applicative[Validated[Failure, *]].compose[Function0].compose[Validated[List[String], *]]
 
       override def pure[A](x: A): Result[A] = Result(applicative.pure(x))
 
